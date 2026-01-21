@@ -2,9 +2,12 @@ import { Edit2, ShoppingBag, ShoppingCart, Coffee, MoreHorizontal } from 'lucide
 import { Card } from './Card';
 import { ExpenseChart } from './ExpenseChart';
 import { ThemeToggle } from './ThemeToggle';
+import { useAuth } from '../contexts/AuthContext';
 import { categoryData, totalBalance, totalSpent } from '../data/mockData';
 
 export function Home() {
+  const { user } = useAuth();
+  
   const categoryIcons = {
     shopping: ShoppingBag,
     groceries: ShoppingCart,
@@ -17,7 +20,7 @@ export function Home() {
       {/* Header */}
       <div className="mb-8 flex items-start justify-between">
         <div>
-          <h1 className="text-[#111111] dark:text-white">Hi, Wayne 👋</h1>
+          <h1 className="text-[#111111] dark:text-white">Hi, {user?.name || 'there'} 👋</h1>
           <p className="text-[#8E8E93] dark:text-[#A0A0A0]">Welcome back</p>
         </div>
         <ThemeToggle />
