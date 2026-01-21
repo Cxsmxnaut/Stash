@@ -1,8 +1,8 @@
-import { Home, Search, BarChart3, User, Plus } from 'lucide-react';
+import { Home, Search, BarChart3, Plus, Settings as SettingsIcon, Wallet, Calendar } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { useAuth } from '../contexts/AuthContext';
 
-export type Screen = 'home' | 'search' | 'analytics' | 'profile' | 'receipt-detail';
+export type Screen = 'home' | 'accounts' | 'transactions' | 'analytics' | 'subscriptions' | 'settings' | 'transaction-detail';
 
 interface DesktopSidebarProps {
   currentScreen: Screen;
@@ -15,9 +15,11 @@ export function DesktopSidebar({ currentScreen, onNavigate, onAddClick }: Deskto
   
   const navItems: { id: Screen; icon: typeof Home; label: string }[] = [
     { id: 'home', icon: Home, label: 'Home' },
+    { id: 'accounts', icon: Wallet, label: 'Accounts' },
+    { id: 'transactions', icon: Search, label: 'Transactions' },
     { id: 'analytics', icon: BarChart3, label: 'Analytics' },
-    { id: 'search', icon: Search, label: 'Transactions' },
-    { id: 'profile', icon: User, label: 'Profile' },
+    { id: 'subscriptions', icon: Calendar, label: 'Subscriptions' },
+    { id: 'settings', icon: SettingsIcon, label: 'Settings' },
   ];
 
   return (

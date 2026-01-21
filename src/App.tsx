@@ -2,15 +2,19 @@ import { useState } from "react";
 import { Home } from "./components/Home";
 import { Analytics } from "./components/Analytics";
 import { Transactions } from "./components/Transactions";
-import { ReceiptDetail } from "./components/ReceiptDetail";
+import { TransactionDetail } from "./components/TransactionDetail";
+import { Accounts } from "./components/Accounts";
+import { AccountsDesktop } from "./components/AccountsDesktop";
+import { Subscriptions } from "./components/Subscriptions";
+import { SubscriptionsDesktop } from "./components/SubscriptionsDesktop";
+import { Settings } from "./components/Settings";
+import { SettingsDesktop } from "./components/SettingsDesktop";
 import { SearchFilters } from "./components/SearchFilters";
 import { BottomNav } from "./components/BottomNav";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { Login } from "./components/Login";
 import { Signup } from "./components/Signup";
-import { UserCenter } from "./components/UserCenter";
-import { UserCenterDesktop } from "./components/UserCenterDesktop";
 import { useIsDesktop } from "./hooks/useMediaQuery";
 import { DesktopSidebar } from "./components/DesktopSidebar";
 import { HomeDesktop } from "./components/HomeDesktop";
@@ -26,10 +30,12 @@ import {
 
 type Screen =
   | "home"
-  | "search"
+  | "accounts"
+  | "transactions"
   | "analytics"
-  | "profile"
-  | "receipt-detail";
+  | "subscriptions"
+  | "settings"
+  | "transaction-detail";
 
 function AppContent() {
   const [currentScreen, setCurrentScreen] =
@@ -52,18 +58,22 @@ function AppContent() {
     switch (currentScreen) {
       case "home":
         return <Home />;
+      case "accounts":
+        return <Accounts />;
       case "analytics":
         return <Analytics />;
-      case "search":
+      case "transactions":
         return <Transactions />;
-      case "receipt-detail":
+      case "subscriptions":
+        return <Subscriptions />;
+      case "transaction-detail":
         return (
-          <ReceiptDetail
-            onBack={() => setCurrentScreen("search")}
+          <TransactionDetail
+            onBack={() => setCurrentScreen("transactions")}
           />
         );
-      case "profile":
-        return <UserCenter />;
+      case "settings":
+        return <Settings />;
       default:
         return <Home />;
     }
@@ -73,20 +83,24 @@ function AppContent() {
     switch (currentScreen) {
       case "home":
         return <HomeDesktop />;
+      case "accounts":
+        return <AccountsDesktop />;
       case "analytics":
         return <AnalyticsDesktop />;
-      case "search":
+      case "transactions":
         return <TransactionsDesktop />;
-      case "receipt-detail":
+      case "subscriptions":
+        return <SubscriptionsDesktop />;
+      case "transaction-detail":
         return (
           <div className="p-8 max-w-[1400px] mx-auto">
-            <ReceiptDetail
-              onBack={() => setCurrentScreen("search")}
+            <TransactionDetail
+              onBack={() => setCurrentScreen("transactions")}
             />
           </div>
         );
-      case "profile":
-        return <UserCenterDesktop />;
+      case "settings":
+        return <SettingsDesktop />;
       default:
         return <HomeDesktop />;
     }
@@ -99,7 +113,7 @@ function AppContent() {
           <DesktopSidebar
             currentScreen={currentScreen}
             onNavigate={setCurrentScreen}
-            onAddClick={() => setCurrentScreen("receipt-detail")}
+            onAddClick={() => setCurrentScreen("transaction-detail")}
           />
           <main className="ml-64">
             {renderDesktopScreen()}
@@ -111,7 +125,7 @@ function AppContent() {
           <BottomNav
             currentScreen={currentScreen}
             onNavigate={setCurrentScreen}
-            onAddClick={() => setCurrentScreen("receipt-detail")}
+            onAddClick={() => setCurrentScreen("transaction-detail")}
           />
         </>
       )}
